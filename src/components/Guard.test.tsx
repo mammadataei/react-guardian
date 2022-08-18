@@ -4,9 +4,16 @@ import { Guard } from './Guard'
 import { expect } from 'vitest'
 import { useState } from 'react'
 
+function createPolicy(name: string, allowed: boolean): Policy {
+  return () => ({
+    name,
+    allowed,
+  })
+}
+
 it('should render its children if all policies grant access', () => {
-  const authPolicy: Policy = () => ({ allowed: true })
-  const adminPolicy: Policy = () => ({ allowed: true })
+  const authPolicy = createPolicy('auth', true)
+  const adminPolicy = createPolicy('admin', true)
 
   const { getByText } = render(
     <Guard policies={[authPolicy, adminPolicy]}>
@@ -18,8 +25,8 @@ it('should render its children if all policies grant access', () => {
 })
 
 it("shouldn't render children if any of policies denies", () => {
-  const authPolicy: Policy = () => ({ allowed: true })
-  const adminPolicy: Policy = () => ({ allowed: false })
+  const authPolicy = createPolicy('auth', true)
+  const adminPolicy = createPolicy('admin', false)
 
   const { queryByText } = render(
     <Guard policies={[authPolicy, adminPolicy]}>
@@ -46,7 +53,7 @@ it('should throw warning if no policies provided', () => {
 })
 
 it('should render fallback if provided any of policies denies', () => {
-  const adminPolicy: Policy = () => ({ allowed: false })
+  const adminPolicy = createPolicy('admin', false)
   const fallback = <div>Access denied</div>
 
   const { queryByText } = render(
@@ -63,9 +70,7 @@ it('should work with policy hooks', () => {
   function useAdminPolicy(): Policy {
     const [isAdmin] = useState(false)
 
-    return function adminPolicy() {
-      return { allowed: isAdmin }
-    }
+    return createPolicy('admin', isAdmin)
   }
 
   function Container() {

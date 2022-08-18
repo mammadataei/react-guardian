@@ -1,2 +1,6 @@
-export type PolicyResult = { allowed: boolean }
+export interface PolicyResult {
+  name: string
+  allowed: boolean
+}
+
 export type Policy = () => PolicyResult
