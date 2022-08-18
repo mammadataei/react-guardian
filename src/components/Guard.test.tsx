@@ -1,14 +1,11 @@
 import { render } from '@testing-library/react'
 import { Policy } from '../types'
-import { Guard } from './Guard'
+import { Guard, GuardFallback } from './Guard'
 import { expect } from 'vitest'
 import { useState } from 'react'
 
 function createPolicy(name: string, allowed: boolean): Policy {
-  return () => ({
-    name,
-    allowed,
-  })
+  return () => ({ name, allowed })
 }
 
 it('should render its children if all policies grant access', () => {
@@ -64,6 +61,54 @@ it('should render fallback if provided any of policies denies', () => {
 
   expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
   expect(queryByText('Access denied')).toBeInTheDocument()
+})
+
+it('should accept component as fallback', () => {
+  const adminPolicy = createPolicy('admin', false)
+
+  function Fallback() {
+    return <div>Access denied</div>
+  }
+
+  const { queryByText } = render(
+    <Guard policies={[adminPolicy]} fallback={<Fallback />}>
+      <div>Only admins can access this.</div>
+    </Guard>,
+  )
+
+  expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
+  expect(queryByText('Access denied')).toBeInTheDocument()
+})
+
+it('should accept a function as callback', () => {
+  const adminPolicy = createPolicy('admin', false)
+  const fallback = () => <div>Access denied</div>
+
+  const { queryByText } = render(
+    <Guard policies={[adminPolicy]} fallback={fallback}>
+      <div>Only admins can access this.</div>
+    </Guard>,
+  )
+
+  expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
+  expect(queryByText('Access denied')).toBeInTheDocument()
+})
+
+it('should pass the failed policy to fallback function', () => {
+  const adminPolicy = createPolicy('admin', false)
+
+  const fallback: GuardFallback = ({ name }) => (
+    <div>Access denied by `{name}` Policy</div>
+  )
+
+  const { queryByText } = render(
+    <Guard policies={[adminPolicy]} fallback={fallback}>
+      <div>Only admins can access this.</div>
+    </Guard>,
+  )
+
+  expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
+  expect(queryByText('Access denied by `admin` Policy')).toBeInTheDocument()
 })
 
 it('should work with policy hooks', () => {

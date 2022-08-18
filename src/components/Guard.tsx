@@ -1,9 +1,13 @@
 import { createElement, Fragment, PropsWithChildren, ReactNode } from 'react'
-import { Policy } from '../types'
+import { Policy, PolicyResult } from '../types'
+
+export type GuardFallback =
+  | ReactNode
+  | ((failedPolicy: PolicyResult) => ReactNode)
 
 interface GuardProps {
   policies: Array<Policy>
-  fallback?: ReactNode
+  fallback?: GuardFallback
 }
 
 export function Guard(props: PropsWithChildren<GuardProps>) {
@@ -16,11 +20,15 @@ export function Guard(props: PropsWithChildren<GuardProps>) {
     )
   }
 
-  const allowed = policies.every((policy) => policy().allowed)
+  const deniedPolicy = policies.find((policy) => !policy().allowed)
 
-  if (!allowed) {
+  if (deniedPolicy !== undefined) {
     if (fallback) {
-      return createElement(Fragment, null, fallback)
+      return createElement(
+        Fragment,
+        null,
+        typeof fallback === 'function' ? fallback(deniedPolicy()) : fallback,
+      )
     }
 
     return null
