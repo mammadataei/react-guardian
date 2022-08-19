@@ -74,3 +74,54 @@ it("should throw error if policy doesn't have redirect property", () => {
     ),
   ).toThrowError(`"admin" policy doesn't contain a redirect property`)
 })
+
+it('should work as wrapper', () => {
+  const adminPolicy = createPolicy('admin', true)
+
+  const { getByText } = render(
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/settings" />} />
+
+        <Route
+          path="/settings"
+          element={
+            <RouteGuard policies={[adminPolicy]}>
+              <div>Settings</div>
+            </RouteGuard>
+          }
+        />
+
+        <Route path="/403" element={<div>Access denied</div>} />
+      </Routes>
+    </HashRouter>,
+  )
+
+  expect(getByText('Settings')).toBeInTheDocument()
+})
+
+it('should redirect on policy denial when rendering as wrapper', () => {
+  const adminPolicy = createPolicy('admin', false)
+
+  const { queryByText } = render(
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/settings" />} />
+
+        <Route
+          path="/settings"
+          element={
+            <RouteGuard policies={[adminPolicy]}>
+              <div>Settings</div>
+            </RouteGuard>
+          }
+        />
+
+        <Route path="/403" element={<div>Access denied</div>} />
+      </Routes>
+    </HashRouter>,
+  )
+
+  expect(queryByText('Settings')).not.toBeInTheDocument()
+  expect(queryByText('Access denied')).toBeInTheDocument()
+})

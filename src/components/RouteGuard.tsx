@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { Policy, PolicyResult } from '../types'
 import { Guard } from './Guard'
@@ -16,10 +17,12 @@ function fallback({ redirect, name }: PolicyResult) {
   return <Navigate to={redirect} />
 }
 
-export function RouteGuard({ policies }: RouteGuardProps) {
+export function RouteGuard(props: PropsWithChildren<RouteGuardProps>) {
+  const { children, policies } = props
+
   return (
     <Guard policies={policies} fallback={fallback}>
-      <Outlet />
+      {children ? children : <Outlet />}
     </Guard>
   )
 }
