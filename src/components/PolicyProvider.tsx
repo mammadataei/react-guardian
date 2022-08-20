@@ -1,7 +1,5 @@
-import { Policy } from '../types'
+import { PolicyGroup } from '../types'
 import { createContext, PropsWithChildren, useContext } from 'react'
-
-type PolicyGroup = { [key: string]: Policy }
 
 interface PolicyProviderProps {
   policies: PolicyGroup

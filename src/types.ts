@@ -5,3 +5,4 @@ export interface PolicyResult {
 }
 
 export type Policy = () => PolicyResult
+export type PolicyGroup = { [key: string]: Policy }

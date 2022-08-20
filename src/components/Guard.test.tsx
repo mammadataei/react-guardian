@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { render } from '@testing-library/react'
 import { Policy } from '../types'
 import { Guard, GuardFallback } from './Guard'
-import { expect } from 'vitest'
-import { useState } from 'react'
+import { PolicyProvider } from './PolicyProvider'
+import { ExpectRenderErrors } from '../../testing'
 
 function createPolicy(name: string, allowed: boolean): Policy {
   return () => ({ name, allowed })
@@ -109,6 +110,58 @@ it('should pass the failed policy to fallback function', () => {
 
   expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
   expect(queryByText('Access denied by `admin` Policy')).toBeInTheDocument()
+})
+
+it('should integrate with PolicyContext', () => {
+  const policies = {
+    auth: createPolicy('auth', true),
+    admin: createPolicy('admin', false),
+  }
+
+  const { queryByText } = render(
+    <PolicyProvider policies={policies}>
+      <Guard policies={['auth', 'admin']}>
+        <div>Only admins can access this.</div>
+      </Guard>
+    </PolicyProvider>,
+  )
+
+  expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
+})
+
+it('should throw error if PolicyGroup is not provided', () => {
+  expect(
+    ExpectRenderErrors(() =>
+      render(
+        <Guard policies={['auth', 'admin']}>
+          <div>Only admins can access this.</div>
+        </Guard>,
+      ),
+    ),
+  ).toThrowError(
+    '[React Guardian]: PolicyGroup not found. To use named policies, ' +
+      'you should provide a PolicyGroup using `PolicyProvider` component.',
+  )
+})
+
+it('should throw error if named policy does not exist in provided PolicyGroup', () => {
+  const policies = {
+    auth: createPolicy('auth', true),
+  }
+
+  expect(
+    ExpectRenderErrors(() =>
+      render(
+        <PolicyProvider policies={policies}>
+          <Guard policies={['auth', 'admin']}>
+            <div>Only admins can access this.</div>
+          </Guard>
+        </PolicyProvider>,
+      ),
+    ),
+  ).toThrowError(
+    `[React Guardian]: Policy "admin" not found in provided PolicyGroup.`,
+  )
 })
 
 it('should work with policy hooks', () => {
