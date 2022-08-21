@@ -5,4 +5,5 @@ export interface PolicyResult {
 }
 
 export type Policy = () => PolicyResult
+export type RoutePolicy = () => Required<PolicyResult>
 export type PolicyGroup = { [key: string]: Policy }

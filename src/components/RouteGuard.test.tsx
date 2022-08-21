@@ -2,10 +2,10 @@ import { render } from '@testing-library/react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ExpectRenderErrors } from '../../testing'
 import { RouteGuard } from './RouteGuard'
-import { Policy } from '../types'
+import { Policy, RoutePolicy } from '../types'
 import { PolicyProvider } from './PolicyProvider'
 
-function createPolicy(name: string, allowed: boolean): Policy {
+function createPolicy(name: string, allowed: boolean): RoutePolicy {
   return () => ({ name, allowed, redirect: '/403' })
 }
 
@@ -55,7 +55,7 @@ it('should redirect to specified route when a policy denies', () => {
 })
 
 it("should throw error if policy doesn't have redirect property", () => {
-  const policy = () => ({ name: 'admin', allowed: false })
+  const policy: Policy = () => ({ name: 'admin', allowed: false })
 
   expect(
     ExpectRenderErrors(() =>
