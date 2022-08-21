@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { render } from '@testing-library/react'
-import { Policy } from '../types'
-import { Guard, GuardFallback } from './Guard'
+import { GuardFallback, Policy } from '../types'
+import { Guard } from './Guard'
 import { PolicyProvider } from './PolicyProvider'
 import { ExpectRenderErrors } from '../../testing'
 

@@ -1,10 +1,6 @@
-import { createElement, Fragment, PropsWithChildren, ReactNode } from 'react'
-import { Policy, PolicyGroup, PolicyResult } from '../types'
+import { createElement, Fragment, PropsWithChildren } from 'react'
+import { GuardFallback, Policy, PolicyGroup } from '../types'
 import { usePolicies } from './PolicyProvider'
-
-export type GuardFallback =
-  | ReactNode
-  | ((failedPolicy: PolicyResult) => ReactNode)
 
 interface GuardProps {
   policies: Array<Policy | string>
