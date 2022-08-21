@@ -4,7 +4,7 @@ import { Policy, PolicyResult } from '../types'
 import { Guard } from './Guard'
 
 interface RouteGuardProps {
-  policies: Array<Policy>
+  policies: Array<Policy | string>
 }
 
 export function RouteGuard(props: PropsWithChildren<RouteGuardProps>) {
