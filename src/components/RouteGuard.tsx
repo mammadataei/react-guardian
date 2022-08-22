@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { Policy, PolicyObject } from '../types'
 import { Guard } from './Guard'
+import { error } from '../helpers'
 
 interface RouteGuardProps {
   policies: Array<Policy | string>
@@ -19,15 +20,11 @@ export function RouteGuard(props: PropsWithChildren<RouteGuardProps>) {
 
 function fallback({ redirect, name }: PolicyObject) {
   if (!redirect) {
-    throwPolicyShouldContainRedirectError(name)
+    error(
+      `"${name}" policy doesn't contain a redirect property, ` +
+        'but it is required for using a policy as "RoutePolicy"',
+    )
   }
 
   return <Navigate to={redirect} />
-}
-
-function throwPolicyShouldContainRedirectError(policyName: string): never {
-  throw new Error(
-    `[React Guardian]: "${policyName}" policy doesn't contain a redirect property, ` +
-      'but it is required for using a policy as "RoutePolicy"',
-  )
 }

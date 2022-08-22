@@ -1,6 +1,7 @@
 import { createElement, Fragment, PropsWithChildren } from 'react'
 import { GuardFallback, Policy, PolicyGroup } from '../types'
 import { usePolicies } from './PolicyProvider'
+import { error, warn } from '../helpers'
 
 interface GuardProps {
   policies: Array<Policy | string>
@@ -12,7 +13,10 @@ export function Guard(props: PropsWithChildren<GuardProps>) {
   const policyGroup = usePolicies()
 
   if (policyList.length === 0) {
-    throwNoPoliciesAreProvidedWarning()
+    warn(
+      'No policies are provided to the Guard component. \n' +
+        'At least provide one policy, or descendants will render without protection.',
+    )
   }
 
   const policies = resolveNamedPoliciesFromPolicyGroup(policyGroup, policyList)
@@ -29,13 +33,6 @@ export function Guard(props: PropsWithChildren<GuardProps>) {
   return createElement(Fragment, null, children)
 }
 
-function throwNoPoliciesAreProvidedWarning() {
-  console.warn(
-    '[React Guardian]: No policies are provided to the Guard component. \n' +
-      'At least provide one policy, or descendants will render without protection.',
-  )
-}
-
 function resolveNamedPoliciesFromPolicyGroup(
   policyGroup: PolicyGroup | undefined,
   policies: Array<Policy | string>,
@@ -43,12 +40,16 @@ function resolveNamedPoliciesFromPolicyGroup(
   return policies.reduce<Array<Policy>>((result, policy) => {
     if (typeof policy === 'string') {
       if (!policyGroup) {
-        throwPolicyGroupNotFoundError()
+        error(
+          'PolicyGroup not found. To use named policies, ' +
+            'you should provide a PolicyGroup using `PolicyProvider` component.',
+        )
       }
 
       return [
         ...result,
-        policyGroup[policy] ?? throwPolicyNotFoundError(policy),
+        policyGroup[policy] ??
+          error(`Policy "${policy}" not found in provided PolicyGroup.`),
       ]
     }
 
@@ -61,18 +62,5 @@ function renderFallback(fallback: GuardFallback, deniedPolicy: Policy) {
     Fragment,
     null,
     typeof fallback === 'function' ? fallback(deniedPolicy()) : fallback,
-  )
-}
-
-function throwPolicyGroupNotFoundError(): never {
-  throw new Error(
-    '[React Guardian]: PolicyGroup not found. To use named policies, ' +
-      'you should provide a PolicyGroup using `PolicyProvider` component.',
-  )
-}
-
-function throwPolicyNotFoundError(policy: string): never {
-  throw new Error(
-    `[React Guardian]: Policy "${policy}" not found in provided PolicyGroup.`,
   )
 }
