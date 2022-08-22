@@ -36,6 +36,7 @@
     "build": "unbuild",
     "test": "vitest --ui --open=false",
     "coverage": "vitest run --coverage",
+    "size": "size-limit",
     "format": "prettier --write . && pnpm lint --fix",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "prepare": "husky install",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@size-limit/preset-small-lib": "^8.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@types/react": "^18.0.17",
@@ -77,9 +79,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
+    "size-limit": "^8.0.1",
     "typescript": "^4.7.4",
     "unbuild": "^0.8.8",
     "vite": "^3.0.4",
     "vitest": "^0.18.1"
-  }
+  },
+  "size-limit": [
+    {
+      "limit": "1 kB",
+      "path": "dist/index.mjs"
+    }
+  ]
 }
