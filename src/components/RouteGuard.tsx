@@ -5,7 +5,7 @@ import { Guard } from './Guard'
 import { error } from '../helpers'
 
 interface RouteGuardProps {
-  policies: Array<Policy | string>
+  policies: Array<Policy>
 }
 
 export function RouteGuard(props: PropsWithChildren<RouteGuardProps>) {

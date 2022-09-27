@@ -3,7 +3,6 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ExpectRenderErrors } from '../../testing'
 import { RouteGuard } from './RouteGuard'
 import { Policy, RoutePolicy } from '../types'
-import { PolicyProvider } from './PolicyProvider'
 
 function createPolicy(name: string, allowed: boolean): RoutePolicy {
   return () => ({ name, authorized: allowed, redirect: '/403' })
@@ -120,31 +119,6 @@ it('should redirect on policy denial when rendering as wrapper', () => {
 
         <Route path="/403" element={<div>Access denied</div>} />
       </Routes>
-    </HashRouter>,
-  )
-
-  expect(queryByText('Settings')).not.toBeInTheDocument()
-  expect(queryByText('Access denied')).toBeInTheDocument()
-})
-
-it('should integrate with PolicyContext', () => {
-  const policies = {
-    admin: createPolicy('admin', false),
-  }
-
-  const { queryByText } = render(
-    <HashRouter>
-      <PolicyProvider policies={policies}>
-        <Routes>
-          <Route path="/" element={<Navigate to="/settings" />} />
-
-          <Route element={<RouteGuard policies={['admin']} />}>
-            <Route path="/settings" element={<div>Settings</div>} />
-          </Route>
-
-          <Route path="/403" element={<div>Access denied</div>} />
-        </Routes>
-      </PolicyProvider>
     </HashRouter>,
   )
 

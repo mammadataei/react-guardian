@@ -1,12 +1,6 @@
 import { render } from '@testing-library/react'
 import { Policy, PolicyResult } from '../types'
 import { Guard } from './Guard'
-import { PolicyProvider } from './PolicyProvider'
-import { ExpectRenderErrors } from '../../testing'
-
-function createPolicy(name: string, allowed: boolean): Policy {
-  return () => ({ name, authorized: allowed })
-}
 
 const authenticated: Policy = () => ({
   authorized: true,
@@ -114,56 +108,4 @@ it('should pass the result of failed policy to fallback function', () => {
   expect(
     queryByText("You don't have permission to create a new Post."),
   ).toBeInTheDocument()
-})
-
-it('should integrate with PolicyContext', () => {
-  const policies = {
-    auth: createPolicy('auth', true),
-    admin: createPolicy('admin', false),
-  }
-
-  const { queryByText } = render(
-    <PolicyProvider policies={policies}>
-      <Guard policies={['auth', 'admin']}>
-        <div>Only admins can access this.</div>
-      </Guard>
-    </PolicyProvider>,
-  )
-
-  expect(queryByText('Only admins can access this.')).not.toBeInTheDocument()
-})
-
-it('should throw error if PolicyGroup is not provided', () => {
-  expect(
-    ExpectRenderErrors(() =>
-      render(
-        <Guard policies={['auth', 'admin']}>
-          <div>Only admins can access this.</div>
-        </Guard>,
-      ),
-    ),
-  ).toThrowError(
-    '[React Guardian]: PolicyGroup not found. To use named policies, ' +
-      'you should provide a PolicyGroup using `PolicyProvider` component.',
-  )
-})
-
-it('should throw error if named policy does not exist in provided PolicyGroup', () => {
-  const policies = {
-    auth: createPolicy('auth', true),
-  }
-
-  expect(
-    ExpectRenderErrors(() =>
-      render(
-        <PolicyProvider policies={policies}>
-          <Guard policies={['auth', 'admin']}>
-            <div>Only admins can access this.</div>
-          </Guard>
-        </PolicyProvider>,
-      ),
-    ),
-  ).toThrowError(
-    `[React Guardian]: Policy "admin" not found in provided PolicyGroup.`,
-  )
 })
