@@ -5,7 +5,7 @@ import { Policy } from '../types'
 import { expect } from 'vitest'
 
 function createPolicy(name: string, allowed: boolean): Policy {
-  return () => ({ name, allowed })
+  return () => ({ name, authorized: allowed })
 }
 
 const consumer = vi.fn()

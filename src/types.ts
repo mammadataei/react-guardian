@@ -1,15 +1,18 @@
 import type { ReactNode } from 'react'
 
-export interface PolicyObject {
-  name: string
-  allowed: boolean
+type WithRequiredProperty<T, K extends keyof T> = T & { [P in K]-?: T[P] }
+
+export interface PolicyResult {
+  name?: string
+  authorized: boolean
+  message?: string
   redirect?: string
 }
 
-export type Policy = () => PolicyObject
-export type RoutePolicy = () => Required<PolicyObject>
-export type PolicyGroup = { [key: string]: Policy }
+export type Policy = () => PolicyResult
+export type RoutePolicy = () => WithRequiredProperty<PolicyResult, 'redirect'>
+export type PolicyGroup = { [key: string]: Policy | RoutePolicy }
 
 export type GuardFallback =
   | ReactNode
-  | ((failedPolicy: PolicyObject) => ReactNode)
+  | ((failedPolicy: PolicyResult) => ReactNode)

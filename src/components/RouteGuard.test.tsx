@@ -6,7 +6,7 @@ import { Policy, RoutePolicy } from '../types'
 import { PolicyProvider } from './PolicyProvider'
 
 function createPolicy(name: string, allowed: boolean): RoutePolicy {
-  return () => ({ name, allowed, redirect: '/403' })
+  return () => ({ name, authorized: allowed, redirect: '/403' })
 }
 
 afterEach(() => {
@@ -55,7 +55,7 @@ it('should redirect to specified route when a policy denies', () => {
 })
 
 it("should throw error if policy doesn't have redirect property", () => {
-  const policy: Policy = () => ({ name: 'admin', allowed: false })
+  const policy: Policy = () => ({ name: 'admin', authorized: false })
 
   expect(
     ExpectRenderErrors(() =>

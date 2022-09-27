@@ -20,7 +20,7 @@ export function Guard(props: PropsWithChildren<GuardProps>) {
   }
 
   const policies = resolveNamedPoliciesFromPolicyGroup(policyGroup, policyList)
-  const deniedPolicy = policies.find((policy) => !policy().allowed)
+  const deniedPolicy = policies.find((policy) => !policy().authorized)
 
   if (deniedPolicy !== undefined) {
     if (fallback) {

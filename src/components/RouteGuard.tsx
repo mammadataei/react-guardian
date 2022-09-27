@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { Policy, PolicyObject } from '../types'
+import { Policy, PolicyResult } from '../types'
 import { Guard } from './Guard'
 import { error } from '../helpers'
 
@@ -18,7 +18,7 @@ export function RouteGuard(props: PropsWithChildren<RouteGuardProps>) {
   )
 }
 
-function fallback({ redirect, name }: PolicyObject) {
+function fallback({ redirect, name }: PolicyResult) {
   if (!redirect) {
     error(
       `"${name}" policy doesn't contain a redirect property, ` +
