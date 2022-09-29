@@ -12,8 +12,8 @@ export default defineConfig({
     },
 
     nav: [
-      { text: 'Guide', link: '/guide' },
-      { text: 'Changelog', link: '' },
+      { text: 'Guide', link: '/introduction' },
+      { text: 'Changelog', link: '#' },
     ],
 
     sidebar: [
