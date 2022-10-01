@@ -36,7 +36,7 @@ Now we can wrap our components in a `Guard` and use the `adminsOnly` policy to
 protect them.
 
 ```tsx
-import { Gaurd } from 'react-guardian'
+import { Guard } from 'react-guardian'
 
 function VeryImportantComponent() {
   return <div>Only admins are allowed to see this.</div>
@@ -44,9 +44,9 @@ function VeryImportantComponent() {
 
 function App() {
   return (
-    <Gaurd policies={[adminsOnly]}>
+    <Guard policies={[adminsOnly]}>
       <VeryImportantComponent />
-    </Gaurd>
+    </Guard>
   )
 }
 ```
