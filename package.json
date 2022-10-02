@@ -1,10 +1,11 @@
 {
   "name": "react-guardian",
   "version": "1.0.0",
-  "description": "Protect your routes and components in react applications",
+  "description": "Declarative authentication and authorization for React applications",
   "author": "Mohammad Ataei",
   "license": "MIT",
   "keywords": [
+    "auth",
     "react",
     "middleware",
     "guard",
@@ -53,11 +54,6 @@
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^6.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react-router-dom": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
