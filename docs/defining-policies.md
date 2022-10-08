@@ -41,9 +41,7 @@ const PostPolicy = {
 
   create(): PolicyResult {
     return {
-      authorized:
-        (user.role === 'writer' && post.author.id === user.id) ||
-        user.role === 'editor',
+      authorized: user.role === 'writer' || user.role === 'editor',
     }
   },
 
@@ -85,9 +83,7 @@ function usePostPolicy(postId: string) {
 
     create(): PolicyResult {
       return {
-        authorized:
-          (user.role === 'writer' && post.author.id === user.id) ||
-          user.role === 'editor',
+        authorized: user.role === 'writer' || user.role === 'editor',
       }
     },
 

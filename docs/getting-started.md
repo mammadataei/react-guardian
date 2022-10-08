@@ -19,10 +19,12 @@ pnpm add react-guardian
 ## Define A Policy
 
 Policies are function that determines how users can access pages or components.
-To create a new policy, define a function which returns a `PolicyResult` object.
+To create a new policy, define a function that returns a `PolicyResult` object.
 
 ```ts
-const adminsOnly: PolicyResult = () => ({
+import { PolicyResult } from 'react-guardian'
+
+const adminsOnly = (): PolicyResult => ({
   // Does the user has access to the page/component?
   authorized: false,
 })
