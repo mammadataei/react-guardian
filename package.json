@@ -91,5 +91,12 @@
       "limit": "1 kB",
       "path": "dist/index.mjs"
     }
-  ]
+  ],
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
+  }
 }
