@@ -13,6 +13,12 @@ export default defineConfig({
     nav: nav(),
     sidebar: sidebar(),
 
+    algolia: {
+      appId: '33IC4BYLDB',
+      apiKey: '47df1cbbeec87f26b7a65d3f2808f53a',
+      indexName: 'react-guardian',
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/mammadataei/react-guardian' },
     ],
