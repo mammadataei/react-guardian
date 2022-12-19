@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { Policy, PolicyResult } from '../types'
+import { Policy, PolicyGroup } from '../types'
 import { Guard } from './Guard'
 
 const authenticated: Policy = () => ({
@@ -7,15 +7,15 @@ const authenticated: Policy = () => ({
 })
 
 const post = {
-  view: (): PolicyResult => ({
+  view: () => ({
     authorized: true,
   }),
 
-  create: (): PolicyResult => ({
+  create: () => ({
     authorized: false,
     message: "You don't have permission to create a new Post.",
   }),
-}
+} satisfies PolicyGroup
 
 it('should render its children if all policies grant access', () => {
   const { getByText } = render(
