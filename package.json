@@ -81,7 +81,7 @@
     "size-limit": "^8.1.0",
     "typescript": "^4.9.3",
     "unbuild": "^0.8.11",
-    "vite": "^3.2.4",
+    "vite": "^4.0.0",
     "vitepress": "1.0.0-alpha.33",
     "vitest": "^0.26.0",
     "vue": "^3.2.41"
