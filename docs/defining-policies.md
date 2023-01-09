@@ -61,6 +61,31 @@ const PostPolicy = {
 }
 ```
 
+Thanks to typescript >= 4.9, you can also use the `satisfies` operator with
+`PolicyGroup` type to get autocompletion and type-safety in policy groups:
+
+```ts
+import { PolicyGroup } from 'react-guardian'
+
+const PostPolicy = {
+  view: () => ({ authorized: !!user }),
+
+  create: () => ({
+    authorized: user.role === 'writer' || user.role === 'editor',
+  }),
+
+  update: () => ({
+    authorized:
+      (user.role === 'writer' && post.author.id === user.id) ||
+      user.role === 'editor',
+  }),
+
+  publish: () => ({
+    authorized: user.role === 'editor',
+  }),
+} satisfies PolicyGroup
+```
+
 ## Policy Hooks
 
 Hooks are the primary tool in React for organizing application logic and are
@@ -75,19 +100,19 @@ function usePostPolicy(postId: string) {
   const post = useGetPostById(postId)
 
   return {
-    view(): PolicyResult {
+    view() {
       return {
         authorized: !!user,
       }
     },
 
-    create(): PolicyResult {
+    create() {
       return {
         authorized: user.role === 'writer' || user.role === 'editor',
       }
     },
 
-    update(): PolicyResult {
+    update() {
       return {
         authorized:
           (user.role === 'writer' && post.author.id === user.id) ||
@@ -95,11 +120,11 @@ function usePostPolicy(postId: string) {
       }
     },
 
-    publish(): PolicyResult {
+    publish() {
       return {
         authorized: user.role === 'editor',
       }
     },
-  }
+  } satisfies PolicyGroup
 }
 ```
