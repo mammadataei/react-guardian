@@ -17,7 +17,7 @@ specifiers:
   eslint: ^8.26.0
   eslint-config-prettier: ^8.5.0
   husky: ^8.0.1
-  jsdom: ^20.0.1
+  jsdom: ^21.0.0
   lint-staged: ^13.0.3
   prettier: 2.8.2
   react: ^18.2.0
@@ -48,7 +48,7 @@ devDependencies:
   eslint: 8.28.0
   eslint-config-prettier: 8.5.0_eslint@8.28.0
   husky: 8.0.2
-  jsdom: 20.0.3
+  jsdom: 21.0.0
   lint-staged: 13.0.4
   prettier: 2.8.2
   react: 18.2.0
@@ -59,7 +59,7 @@ devDependencies:
   unbuild: 0.8.11
   vite: 4.0.2
   vitepress: 1.0.0-alpha.36_2zx2umvpluuhvlq44va5bta2da
-  vitest: 0.26.0_k5jpxndxn3eap2b5pc7zuodaxy
+  vitest: 0.26.0_jjksxpxwktwo6oxwpyzdbc6kou
   vue: 3.2.45
 
 packages:
@@ -3689,8 +3689,8 @@ packages:
       argparse: 2.0.1
     dev: true
 
-  /jsdom/20.0.3:
-    resolution: {integrity: sha512-SYhBvTh89tTfCD/CRdSOm13mOBa42iTaTyfyEWBdKcGdPxPtLFBXuHR8XHb33YNYaP+lLbmSvBTsnoesCNJEsQ==}
+  /jsdom/21.0.0:
+    resolution: {integrity: sha512-AIw+3ZakSUtDYvhwPwWHiZsUi3zHugpMEKlNPaurviseYoBqo0zBd3zqoUi3LPCNtPFlEP8FiW9MqCZdjb2IYA==}
     engines: {node: '>=14'}
     peerDependencies:
       canvas: ^2.5.0
@@ -5480,7 +5480,7 @@ packages:
       - terser
     dev: true
 
-  /vitest/0.26.0_k5jpxndxn3eap2b5pc7zuodaxy:
+  /vitest/0.26.0_jjksxpxwktwo6oxwpyzdbc6kou:
     resolution: {integrity: sha512-5kUnms5WOa0qrDCJePEPB13v9mhr+ZT1Qy0qNg0eVj1X7/Fx4GY4L1e5s3OH+BQ/J7M5WtaKsUGv9l1pbC7v2Q==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -5510,7 +5510,7 @@ packages:
       acorn-walk: 8.2.0
       chai: 4.3.7
       debug: 4.3.4
-      jsdom: 20.0.3
+      jsdom: 21.0.0
       local-pkg: 0.4.2
       source-map: 0.6.1
       strip-literal: 1.0.0
