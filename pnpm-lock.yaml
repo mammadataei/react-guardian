@@ -19,7 +19,7 @@ specifiers:
   husky: ^8.0.1
   jsdom: ^21.0.0
   lint-staged: ^13.0.3
-  prettier: 2.8.3
+  prettier: 2.8.4
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.4.2
@@ -50,7 +50,7 @@ devDependencies:
   husky: 8.0.2
   jsdom: 21.1.0
   lint-staged: 13.0.4
-  prettier: 2.8.3
+  prettier: 2.8.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.4.4_biqbaboplfbrettd7655fr4n2y
@@ -4477,8 +4477,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier/2.8.3:
-    resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
+  /prettier/2.8.4:
+    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
