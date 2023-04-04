@@ -80,8 +80,8 @@ devDependencies:
     specifier: ^4.0.0
     version: 4.0.2(@types/node@14.18.34)
   vitepress:
-    specifier: 1.0.0-alpha.64
-    version: 1.0.0-alpha.64(@types/node@14.18.34)(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 1.0.0-alpha.65
+    version: 1.0.0-alpha.65(@types/node@14.18.34)(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
   vitest:
     specifier: ^0.29.0
     version: 0.29.1(@vitest/ui@0.29.1)(jsdom@21.1.0)
@@ -6096,8 +6096,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress@1.0.0-alpha.64(@types/node@14.18.34)(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-u12wcDH4VzgxxkQfVQWkXumrL3WRetpenz4VuAtiMWXeZSCayWcJtieWOFxmX/RzS2KEuTJpXGbtJAXORyyJBQ==}
+  /vitepress@1.0.0-alpha.65(@types/node@14.18.34)(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-iGWC0AQC6WrfRZTJf5+TiGG4o8PLhqIJNyai8NVxZCY9YpmMJhddvQeqqjJdQniF/LQK/hQ5nQZ9HgSZDGRPGQ==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.3
