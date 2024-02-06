@@ -82,7 +82,7 @@
     "typescript": "^5.0.0",
     "unbuild": "^2.0.0",
     "vite": "^5.0.0",
-    "vitepress": "1.0.0-rc.40",
+    "vitepress": "1.0.0-rc.41",
     "vitest": "^0.33.0",
     "vue": "^3.2.41"
   },
