@@ -58,7 +58,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
     "@commitlint/config-conventional": "^18.0.0",
-    "@size-limit/preset-small-lib": "^8.1.0",
+    "@size-limit/preset-small-lib": "^11.0.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.24",
